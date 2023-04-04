@@ -1,17 +1,17 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { useRef } from "react";
 
 export default function App() {
   const [currency, setCurrency] = useState([]);
-  const refer = useRef(null);
-  const detail = useRef(null); // zatim nevyuzita promenna
+
+  // const renderDetail = (foundData) => {
+  //    return foundData.name
+  // }
 
   const handleClick = (event) => {
     const index = event.currentTarget.id;
-    console.log(index);
     const found = currency[index]; // nalezena korespondujici data k dane mene, ty chci pote zobrazit do druheho okna jako detail meny
-    console.log(found);
+    document.getElementById("detail").innerHTML = JSON.stringify(found);
   };
 
   const getApiData = () => {
@@ -44,12 +44,7 @@ export default function App() {
               <tbody>
                 {currency.map((data, index) => (
                   <>
-                    <tr
-                      id={index}
-                      ref={refer}
-                      class="curr"
-                      onClick={handleClick}
-                    >
+                    <tr id={index} class="curr" onClick={handleClick}>
                       <td>{data.country}</td>
                       <td>{data.shortName}</td>
                       <td>{data.name}</td>
@@ -60,8 +55,8 @@ export default function App() {
             </table>
           </div>
 
-          <div id="window" class="col-md-5">
-            {/* zde bude pote detail */}
+          <div id="window" class="col-md-5 text-break">
+            <p class="text-justify" id="detail">click for detail</p>
           </div>
         </div>
       </div>
